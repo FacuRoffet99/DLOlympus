@@ -1,8 +1,8 @@
 import mlflow
 import numpy as np
 from datetime import datetime
-from .models.training.singlelabelclassification import get_predictions_table, fastai2onnx
-from .models.training.plots import plot_confusion_matrix, plot_metrics, plot_losses
+from .singlelabelclassification import get_predictions_table, fastai2onnx
+from .plots import plot_confusion_matrix, plot_metrics, plot_losses
 
 
 def mlflow_train(learn, hyperparameters, callbacks, metrics_names, path, experiment_name):
