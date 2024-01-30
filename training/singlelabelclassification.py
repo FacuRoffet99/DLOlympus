@@ -74,7 +74,7 @@ def get_predictions_table(learn, dl):
     file_paths = dl.dataset.items.file_path.values
     probs, ground_truths, losses = learn.get_preds(dl=dl, with_loss=True)
     predictions = np.argmax(probs, axis=1)
-    data = np.array([file_paths, labels[ground_truths], labels[predictions], losses, np.max(probs.numpy(),axis=1)]).T
+    data = np.array([file_paths, np.array(labels[ground_truths]), np.array(labels[predictions]), np.array(losses), np.max(probs.numpy(),axis=1)]).T
     table = pd.DataFrame(data=data, columns=["file_name", "ground_truth", "prediction", "loss", "confidence"])
     
     return table.sort_values(by='loss', ascending=False)
