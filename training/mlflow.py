@@ -26,11 +26,14 @@ def mlflow_train(learn, hyperparameters, callbacks, metrics_names, path, experim
 
         # Create and log figures
         try:
-            mlflow.log_figure(plot_losses(learn), 'losses.png', save_kwargs={'bbox_inches': 'tight'})
-            mlflow.log_figure(plot_metrics(learn, metrics_names), 'metrics.png', save_kwargs={'bbox_inches': 'tight'})
+            _ = plot_losses(learn, path)
+            _ = plot_metrics(learn, metric_names, path)
             probs, ground_truths = learn.get_preds(ds_idx=1)
             predictions = np.argmax(probs, axis=1)
-            mlflow.log_figure(plot_confusion_matrix(ground_truths, predictions, learn.dls.vocab), 'confusion.png', save_kwargs={'bbox_inches': 'tight'})
+            _ = plot_confusion_matrix(ground_truths, predictions, learn.dls.vocab, path)
+            mlflow.log_artifact(f'{path}losses.png', '')
+            mlflow.log_artifact(f'{path}metrics.png', '')
+            mlflow.log_artifact(f'{path}confusion.png', '')
         except Exception:
             print('ERROR: the figures were not properly created or logged') 
 
