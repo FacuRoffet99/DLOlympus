@@ -5,7 +5,7 @@ from matplotlib import pyplot as plt
 from sklearn.metrics import confusion_matrix
 
 
-def plot_confusion_matrix(ground_truths, predictions, classes):
+def plot_confusion_matrix(ground_truths, predictions, classes, path):
     '''
     Creates and plots a confusion matrix given the ground truths and the predictions of the classification model.
 
@@ -40,11 +40,12 @@ def plot_confusion_matrix(ground_truths, predictions, classes):
     ax.set_xticklabels(ax.get_xticklabels(), rotation=45, ha='right', fontsize=12)
     ax.set_yticklabels(ax.get_yticklabels(), rotation=0, ha='right', fontsize=12)
     fig = ax.get_figure()
+    plt.savefig(f'{path}confusion.png', bbox_inches='tight')
 
     return fig
 
 
-def plot_losses(learn):
+def plot_losses(learn, path):
     '''
     Creates and plots a figure with the training and validation losses curves.
 
@@ -69,11 +70,12 @@ def plot_losses(learn):
     plt.legend()
     plt.show()
     fig = plot.figure
-
+    plt.savefig(f'{path}losses.png', bbox_inches='tight')
+    
     return fig
 
 
-def plot_metrics(learn, metrics_names):
+def plot_metrics(learn, metrics_names, path):
     '''
     Creates and plots a figure with the curves of all metrics.
 
@@ -96,5 +98,6 @@ def plot_metrics(learn, metrics_names):
     plt.legend()
     plt.show()    
     fig = plot.figure
+    plt.savefig(f'{path}metrics.png', bbox_inches='tight')
 
     return fig
