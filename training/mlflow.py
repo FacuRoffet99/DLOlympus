@@ -27,7 +27,7 @@ def mlflow_train(learn, hyperparameters, callbacks, metrics_names, path, experim
         # Create and log figures
         try:
             _ = plot_losses(learn, path)
-            _ = plot_metrics(learn, metric_names, path)
+            _ = plot_metrics(learn, metrics_names, path)
             probs, ground_truths = learn.get_preds(ds_idx=1)
             predictions = np.argmax(probs, axis=1)
             _ = plot_confusion_matrix(ground_truths, predictions, learn.dls.vocab, path)
