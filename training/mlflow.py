@@ -5,7 +5,7 @@ from .singlelabelclassification import get_predictions_table, fastai2onnx
 from .plots import plot_confusion_matrix, plot_metrics, plot_losses
 
 
-def mlflow_train(learn, hyperparameters, callbacks, metrics_names, path, experiment_name):
+def mlflow_train(learn, hyperparameters, callbacks, metrics_names, path, experiment_name, with_onnx=False):
 
     mlflow.set_experiment(experiment_name=experiment_name)
 
@@ -51,15 +51,17 @@ def mlflow_train(learn, hyperparameters, callbacks, metrics_names, path, experim
         for name, met in zip(metrics_names, metrics):
             mlflow.log_metric(name, met)
 
-        # Get input size for the model
-        height, width = hyperparameters['IMG_SIZE']
-        # Convert FastAI model to ONNX model and export it
-        fastai2onnx(learn, path, height, width)
+        if with_onnx:
+            # Get input size for the model
+            height, width = hyperparameters['IMG_SIZE']
+            # Convert FastAI model to ONNX model and export it
+            fastai2onnx(learn, path, height, width)
+            # Log model
+            mlflow.log_artifact(f'{path}model.onnx', '')
+        
         # Export fastai model
         learn.export(f'{path}model.pkl')
-        
-        # Log models
-        mlflow.log_artifact(f'{path}model.onnx', '')
+        # Log model
         mlflow.log_artifact(f'{path}model.pkl', '')
 
         return train_table, valid_table
