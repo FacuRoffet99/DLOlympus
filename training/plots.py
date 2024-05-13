@@ -5,7 +5,7 @@ from matplotlib import pyplot as plt
 from sklearn.metrics import confusion_matrix
 
 
-def plot_confusion_matrix(ground_truths, predictions, classes, path):
+def plot_confusion_matrix(ground_truths, predictions, classes, path, figsize=(16,16), num_size=12):
     '''
     Creates and plots a confusion matrix given the ground truths and the predictions of the classification model.
 
@@ -23,7 +23,9 @@ def plot_confusion_matrix(ground_truths, predictions, classes, path):
 
     df = pd.DataFrame(cm, index=classes, columns=classes)
     df_norm = pd.DataFrame(cm_norm, index=classes, columns=classes)
-    ax = sns.heatmap(df_norm, annot=df, fmt='d', linewidths=0.5, linecolor='black', cmap='YlGn', vmin=0, vmax=1, annot_kws={"color": "black", "size": 18})
+
+    plt.figure(figsize = figsize)
+    ax = sns.heatmap(df_norm, annot=df, fmt='d', linewidths=0.5, linecolor='black', cmap='YlGn', vmin=0, vmax=1, annot_kws={"color": "black", "size": num_size})
 
     for _, spine in ax.spines.items():
         spine.set_visible(True)
