@@ -25,7 +25,7 @@ def get_metrics(learn, with_tta=True, **tta_kwargs):
             if type(m) == AvgMetric:
                 values += m.func(results[0], results[1]).item()
             if type(m) == AccumMetric:
-                values += m.func(results[0].argmax(axis=1), results[1])
+                values += m.func(results[0].argmax(axis=1), results[1], average='macro')
         
     metrics = dict(zip(names, values))
 
