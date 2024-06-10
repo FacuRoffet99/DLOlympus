@@ -5,7 +5,7 @@ from matplotlib import pyplot as plt
 from sklearn.metrics import confusion_matrix
 
 
-def plot_confusion_matrix(ground_truths, predictions, classes, path, figsize=(16,16), num_size=12):
+def plot_confusion_matrix(ground_truths, predictions, classes, path):
     '''
     Creates and plots a confusion matrix given the ground truths and the predictions of the classification model.
 
@@ -24,8 +24,8 @@ def plot_confusion_matrix(ground_truths, predictions, classes, path, figsize=(16
     df = pd.DataFrame(cm, index=classes, columns=classes)
     df_norm = pd.DataFrame(cm_norm, index=classes, columns=classes)
 
-    plt.figure(figsize = figsize)
-    ax = sns.heatmap(df_norm, annot=df, fmt='d', linewidths=0.5, linecolor='black', cmap='YlGn', vmin=0, vmax=1, annot_kws={"color": "black", "size": num_size})
+    plt.figure()
+    ax = sns.heatmap(df_norm, annot=df, fmt='d', linewidths=0.5, linecolor='black', cmap='YlGn', vmin=0, vmax=1, annot_kws={"color": "black", "size": 18})
 
     for _, spine in ax.spines.items():
         spine.set_visible(True)
@@ -64,20 +64,20 @@ def plot_losses(learn, path):
     valid_losses = [v[1] for v in rec.values]
     valid_iters = np.arange(1, learn.n_epoch+1)
 
+    plt.figure()
     sns.set(style="whitegrid")
     plot = sns.lineplot(x=train_iters, y=train_losses, label='Train', linestyle='-')
     sns.lineplot(x=valid_iters, y=valid_losses, label='Valid', marker='o', linestyle='--', color='green')
     plt.xlabel('Epochs')
     plt.ylabel('Loss')
     plt.legend()
-    plt.show()
     fig = plot.figure
     plt.savefig(f'{path}losses.png', bbox_inches='tight')
     
     return fig
 
 
-def plot_metrics(learn, metrics_names, path):
+def plot_metrics(learn, path):
     '''
     Creates and plots a figure with the curves of all metrics.
 
@@ -90,15 +90,16 @@ def plot_metrics(learn, metrics_names, path):
 
     valid_iters = np.arange(1, learn.n_epoch+1)
     met = np.array([v[2:] for v in learn.recorder.values])
+    metrics_names = [m.func.__name__ for m in learn.metrics]
 
+    plt.figure()
     sns.set(style="whitegrid")
     for i in np.arange(len(metrics_names)):
         plot = sns.lineplot(x=valid_iters, y=met[:,i], label=metrics_names[i], linestyle='-')
     # sns.lineplot(x=valid_iters, y=valid_losses, label='Valid', marker='o', linestyle='--', color='green')
     plt.xlabel('Epochs')
     plt.ylabel('Metrics')
-    plt.legend()
-    plt.show()    
+    plt.legend()   
     fig = plot.figure
     plt.savefig(f'{path}metrics.png', bbox_inches='tight')
 
