@@ -15,6 +15,6 @@ def get_weights(dls):
     return weights
 
 def oversampled_epoch(self):
-    item_weights = self.dls.items.label.apply(lambda x: pd.DataFrame(1 / np.sqrt(self.dls.items.label.value_counts())).to_dict()['count'][x])
+    item_weights = self.items.label.apply(lambda x: pd.DataFrame(1 / np.sqrt(self.items.label.value_counts())).to_dict()['count'][x])
     oversampled_idxs = self.items.sample(n=self.n, weights=item_weights, replace=True).index
     return [np.where(self.items.index == i)[0][0] for i in oversampled_idxs]
