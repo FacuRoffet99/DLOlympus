@@ -14,7 +14,7 @@ def get_weights(dls):
     weights = torch.FloatTensor(weights).to(dls.device)
     return weights
 
-def oversampled_epoch(self):
-    item_weights = self.items.label.apply(lambda x: pd.DataFrame(1 / np.sqrt(self.items.label.value_counts())).to_dict()['count'][x])
+def oversampled_epoch(self, class_weights = None):
+    item_weights = self.items.label.apply(lambda x: class_weights[str(x)])
     oversampled_idxs = self.items.sample(n=self.n, weights=item_weights, replace=True).index
     return [np.where(self.items.index == i)[0][0] for i in oversampled_idxs]
