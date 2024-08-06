@@ -18,8 +18,8 @@ def plot_confusion_matrix(ground_truths, predictions, classes, path, figsize=(16
         fig (matplotlib.figure.Figure): figure object.
     '''
 
-    cm = confusion_matrix(ground_truths, predictions)
-    cm_norm = confusion_matrix(ground_truths, predictions, normalize='true')
+    cm = confusion_matrix(ground_truths, predictions, labels=classes)
+    cm_norm = confusion_matrix(ground_truths, predictions, normalize='true', labels=classes)
 
     df = pd.DataFrame(cm, index=classes, columns=classes)
     df_norm = pd.DataFrame(cm_norm, index=classes, columns=classes)
