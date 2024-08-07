@@ -5,7 +5,7 @@ from matplotlib import pyplot as plt
 from sklearn.metrics import confusion_matrix
 
 
-def plot_confusion_matrix(ground_truths, predictions, classes, path, figsize=(16,16), num_size=12):
+def plot_confusion_matrix(ground_truths, predictions, classes, path, figsize=(16,16), num_size=12, order_by_classes=False):
     '''
     Creates and plots a confusion matrix given the ground truths and the predictions of the classification model.
 
@@ -18,8 +18,9 @@ def plot_confusion_matrix(ground_truths, predictions, classes, path, figsize=(16
         fig (matplotlib.figure.Figure): figure object.
     '''
 
-    cm = confusion_matrix(ground_truths, predictions, labels=classes)
-    cm_norm = confusion_matrix(ground_truths, predictions, normalize='true', labels=classes)
+    labels = classes if order_by_classes else None
+    cm = confusion_matrix(ground_truths, predictions, labels=labels)
+    cm_norm = confusion_matrix(ground_truths, predictions, labels=labels, normalize='true')
 
     df = pd.DataFrame(cm, index=classes, columns=classes)
     df_norm = pd.DataFrame(cm_norm, index=classes, columns=classes)
