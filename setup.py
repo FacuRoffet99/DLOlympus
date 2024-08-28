@@ -10,5 +10,6 @@ setup(
     include_package_data=True,
     install_requires=[
         'fastai==2.7.14',
+        'albumentations==1.4.1'
     ],
 )
