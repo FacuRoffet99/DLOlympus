@@ -36,6 +36,6 @@ def mlflow_log(path, hyperparameters, metrics, experiment_name):
         print('Metrics logged!')
 
         # Log artifacts
-        for f in [p for p in os.listdir(path) if os.path.isfile(os.path.join(path, f))]:
+        for f in [p for p in os.listdir(path) if os.path.isfile(os.path.join(path, p))]:
             mlflow.log_artifact(path+f, '')
         print('Artifacts logged!')
