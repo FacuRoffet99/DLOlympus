@@ -36,6 +36,36 @@ class MSEMetric(Metric):
         mse = self.total / self.count
         return np.sqrt(mse) if self.root else mse      
 
+class MAEMetric(Metric):
+    '''
+    MAE metric for training in FastAI.
+ 
+    Args:
+        axis (int): Axis to compute MAE for multi-task models (-1 for single-task).
+        output_pos (int): Output position of predictions for custom models with multiple outputs.
+        metric_name (str): Name of the metric to display.
+    '''
+    def __init__(self, 
+                 axis=-1, 
+                 output_pos=None, 
+                 metric_name='mae'):
+        self.__name__ = metric_name
+        self.axis = axis 
+        self.output_pos = output_pos
+    def reset(self):
+        self.total = 0.
+        self.count = 0
+    def accumulate(self, learn):
+        targs = learn.y[:, self.axis]
+        preds = learn.pred[self.output_pos][:, self.axis] if self.output_pos is not None else learn.pred[:, self.axis]
+        self.total += (preds - targs).abs().sum().item()
+        self.count += targs.shape[0]
+    @property
+    def value(self):
+        if self.count == 0: return None
+        mae = self.total / self.count
+        return mae  
+
 class AccuracyMetric(Metric):
     '''
     Accuracy metric for training in FastAI.

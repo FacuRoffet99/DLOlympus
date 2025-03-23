@@ -15,7 +15,11 @@ def get_metrics(learn, with_tta=True, **tta_kwargs):
     '''
     Returns a dictionary with the names and values of the metrics.
     '''
-    names = [m.func.__name__ for m in learn.metrics]
+    
+    try:
+        names = [m.func.__name__ for m in learn.metrics]
+    except:
+        names = [m.__name__ for m in learn.metrics]
     values = learn.validate()[1:]
 
     if with_tta:
