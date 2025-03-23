@@ -91,7 +91,10 @@ def plot_metrics(learn, path):
 
     valid_iters = np.arange(1, learn.n_epoch+1)
     met = np.array([v[2:] for v in learn.recorder.values])
-    metrics_names = [m.func.__name__ for m in learn.metrics]
+    try:
+        metrics_names = [m.func.__name__ for m in learn.metrics]
+    except:
+        metrics_names = [m.__name__ for m in learn.metrics]
 
     plt.figure()
     sns.set(style="whitegrid")
