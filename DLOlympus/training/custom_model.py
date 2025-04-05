@@ -1,5 +1,5 @@
-from fastai.vision.learner import TimmBody, _add_norm, _timm_norm, model_meta, _default_meta
-from fastai.vision.models import create_body, num_features_model
+from fastai.vision.learner import TimmBody, create_body, _add_norm, _timm_norm, model_meta, _default_meta
+from fastai.callback.hook import num_features_model
 from torch import nn
 import timm
 from .utils import get_model
