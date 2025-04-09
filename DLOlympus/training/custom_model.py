@@ -1,4 +1,5 @@
-from fastai.vision.learner import TimmBody, create_body, _add_norm, _timm_norm, model_meta, _default_meta
+from fastai.vision.learner import TimmBody, _add_norm, _timm_norm, model_meta, _default_meta
+from fastai.vision.learner import create_body as create_body_torchvision
 from fastai.callback.hook import num_features_model
 from torch import nn
 import timm
@@ -8,7 +9,7 @@ def create_torchvision_body(arch, pretrained=True, n_in=3):
 	'''Create a body from a torchvision model object.'''
 	meta = model_meta.get(arch, _default_meta)
 	model = arch(pretrained=pretrained)
-	body = create_body(model, n_in, pretrained, meta['cut'])
+	body = create_body_torchvision(model, n_in, pretrained, meta['cut'])
 	nf = num_features_model(nn.Sequential(*body.children()))
 	return body, nf
 
