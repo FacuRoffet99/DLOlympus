@@ -1,26 +1,21 @@
 from abc import ABC, abstractmethod
+import pathlib
 
 class ModelInferencer(ABC):
     '''
     Base (abstract) class for implementing a model inferencer.
 
     Args:
-        checkpoint_file (str): Path to the .pkl file where the model weights are stored.
-        labels (list): List containing the names of the classes to predict (in order). 
+        checkpoint_file (str): Path to the .pth file where the model weights are stored.
     '''
 
-    def __init__(self, checkpoint_file, labels):
-        self.checkpoint_file = checkpoint_file
-        self.labels = labels
+    def __init__(self, checkpoint_file):
+        self.checkpoint_file = pathlib.path(checkpoint_file)
 
     @abstractmethod
-    def init(self, cpu):
-        pass
-
-    @abstractmethod
-    def set_params(self, param_dict):
+    def init(self):
         pass
 
     @abstractmethod
     def process(self, imgs_source):
-        pass
+        pass      

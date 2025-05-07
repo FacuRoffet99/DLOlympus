@@ -100,7 +100,6 @@ def plot_metrics(learn, path):
     sns.set(style="whitegrid")
     for i in np.arange(len(metrics_names)):
         plot = sns.lineplot(x=valid_iters, y=met[:,i], label=metrics_names[i], linestyle='-')
-    # sns.lineplot(x=valid_iters, y=valid_losses, label='Valid', marker='o', linestyle='--', color='green')
     plt.xlabel('Epochs')
     plt.ylabel('Metrics')
     plt.legend()   
