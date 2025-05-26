@@ -22,12 +22,12 @@ class FastAIInferencer(ModelInferencer):
             kwargs: Keywords arguments for 'custom_model_learner' (it is recommended to include at least 'pretrained' and 'loss_func'). 
         '''
         # If available use gpu, else cpu
-        self.device = torch.cuda.is_available()
+        self.device = 'cuda' if torch.cuda.is_available() else 'cpu'
         # Create dummy dataloader
         dls = DataLoaders.from_dblock(block, [0], bs=bs, num_workers=0)
         # Load model
         self.learn = custom_model_learner(dls, model, model_dir=self.checkpoint_file.parent, **kwargs).to_fp16()
-        self.learn.load(str(self.checkpoint_file.with_suffix('')), device=self.device, strict=True)         
+        self.learn.load(str(self.checkpoint_file.with_suffix('')), device=self.device, strict=True, weights_only=False)         
 
     def process(self, items, **kwargs):
         '''

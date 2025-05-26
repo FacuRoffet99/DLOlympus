@@ -10,7 +10,7 @@ class ModelInferencer(ABC):
     '''
 
     def __init__(self, checkpoint_file):
-        self.checkpoint_file = pathlib.path(checkpoint_file)
+        self.checkpoint_file = pathlib.Path(checkpoint_file)
 
     @abstractmethod
     def init(self):

@@ -20,16 +20,16 @@ def create_timm_body(arch, pretrained=True, n_in=3, **kwargs):
 	nf = body.model.num_features
 	return body, nf, model.default_cfg
 
-def create_body(dls, hyperparameters, n_in=3, normalize=True):
+def create_body(hyperparameters, n_in=3, dls_normalize=None):
 	'''Create a torchvision or timm body.'''
 	arch = get_model(hyperparameters)
 	pretrained = hyperparameters['PRETRAINED']   
 	meta = model_meta.get(arch, _default_meta)
 	if isinstance(arch, str):
 		body, nf, cfg = create_timm_body(arch, pretrained=pretrained, n_in=n_in)
-		if normalize: _timm_norm(dls, cfg, pretrained, n_in)
+		if dls_normalize is not None: _timm_norm(dls_normalize, cfg, pretrained, n_in)
 	else:
-		if normalize: _add_norm(dls, meta, pretrained, n_in)
+		if dls_normalize is not None: _add_norm(dls_normalize, meta, pretrained, n_in)
 		body, nf = create_torchvision_body(arch, pretrained=pretrained, n_in=n_in)
 	return body, nf
 
