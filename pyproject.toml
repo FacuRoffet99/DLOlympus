@@ -8,7 +8,7 @@ authors = [
 version = "0.2.0"
 description = "Tools and pipelines for Deep Learning."
 readme = "README.md"
-requires-python = ">=3.10"
+requires-python = ">=3.11"
 dependencies = [
     "albumentations>=2.0.8",
     "dill>=0.4.0",
