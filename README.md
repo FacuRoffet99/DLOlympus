@@ -2,7 +2,6 @@
 
 DLOlympus is a toolkit to accelerate and simplify Deep Learning workflows. This repository provides a set of reusable classes and functions designed to solve common problems in classification, regression, and object detection tasks. Start your journey by looking at the `pipelines_nbs` folder, which contains notebooks with complete workflows for training and inference.
 
------
 
 ## Olympians: Supported Functionality
 
@@ -16,7 +15,7 @@ DLOlympus is a toolkit to accelerate and simplify Deep Learning workflows. This 
     * Simple and robust inference.
     * Class imbalance samplers and loss weighting.
     * Export to ONNX format.
-* **🔱 MMDetection 🔱** - The ruler of object detection and instance segmentation (*In progress*):
+* **🔱 MMDetection 🔱** - The ruler of object detection and instance segmentation (*In progress*)
     * Validation loss support.
     * Visualization of samples.
     * Standardizer inferencer.
@@ -24,11 +23,10 @@ DLOlympus is a toolkit to accelerate and simplify Deep Learning workflows. This 
 * **⚕️ ONNX ⚕️** - The communicator of frameworks:
     * Inferencer for easy predictions.
 
------
 
 ## Installation
 
-To install DLOlympus and its dependecies run the following:
+To install DLOlympus and its dependecies run the following
 
 ```bash
 git clone https://github.com/FacuRoffet99/DLOlympus.git
@@ -38,7 +36,6 @@ pip install -e .
 
 If you plan to use MMDetection functionality, you must install it first. You may follow the [official MMDetection installation instructions](https://mmdetection.readthedocs.io/en/latest/get_started.html) or my (almost) headache-free guide in `install_mmdetection.ipynb`.
 
------
 
 ## Contributions to Open Source
 

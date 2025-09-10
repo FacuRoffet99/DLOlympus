@@ -168,6 +168,8 @@ class MultiheadModel(IndexableModule):
 		self.backbone = backbone
 		self.heads = nn.ModuleList(heads)
 	def forward(self, x):
+		if isinstance(x, tuple) and len(x)==1:
+			x = x[0]
 		x = self.backbone(x)
 		x = tuple(h(x) for h in self.heads)
 		if len(self.heads) == 1:
