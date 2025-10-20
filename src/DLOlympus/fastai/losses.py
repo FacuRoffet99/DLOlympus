@@ -35,6 +35,14 @@ class SummedWeightedLoss(nn.Module):
 			total_loss = total_loss.mean()
 		return total_loss
 	def activation(self, preds_tuple):
-		return tuple(loss.activation(p) for loss, p in zip(self.loss_functions, preds_tuple))
+		res = []
+		for loss, p in zip(self.loss_functions, preds_tuple):
+			act = getattr(loss, "activation", None)
+			res.append(act(p) if callable(act) else p)
+		return tuple(res)
 	def decodes(self, preds_tuple):
-		return tuple(loss.decodes(p) for loss, p in zip(self.loss_functions, preds_tuple))
+		res = []
+		for loss, p in zip(self.loss_functions, preds_tuple):
+			dec = getattr(loss, "decodes", None)
+			res.append(dec(p) if callable(dec) else p)
+		return tuple(res)

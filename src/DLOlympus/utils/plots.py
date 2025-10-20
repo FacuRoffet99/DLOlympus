@@ -57,14 +57,14 @@ def plot_confusion_matrix(
 	cbar.outline.set_edgecolor('black')
 	cbar.outline.set_linewidth(1.5)
 
-	ax.set_title('Confusion Matrix', fontdict={'fontsize': 32, 'fontweight': 'medium'})
-	ax.set_xlabel('Predicted class', fontsize=18)
-	ax.set_ylabel('True class', fontsize=18)
-	ax.set_xticklabels(ax.get_xticklabels(), rotation=45, ha='right', fontsize=12)
+	ax.set_xlabel('Predicted class', fontsize=15)
+	ax.set_ylabel('True class', fontsize=15)
+	ax.set_xticklabels(ax.get_xticklabels(), rotation=90, ha='center', fontsize=12)
 	ax.set_yticklabels(ax.get_yticklabels(), rotation=0, ha='right', fontsize=12)
 	fig = ax.get_figure()
+	fig.tight_layout()
 
 	if path is not None:
-		fig.savefig(path, bbox_inches='tight')
+		plt.savefig(path, dpi=300)
 
 	return fig

@@ -26,7 +26,7 @@ DLOlympus is a toolkit to accelerate and simplify Deep Learning workflows. This 
 
 ## Installation
 
-To install DLOlympus and its dependecies run the following
+First, install `torch` using the official documentation. Then, to install DLOlympus and its dependecies, run the following
 
 ```bash
 git clone https://github.com/FacuRoffet99/DLOlympus.git
